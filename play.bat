@@ -1,2 +1,2 @@
 cd Game
-py player.py
+python player.py
