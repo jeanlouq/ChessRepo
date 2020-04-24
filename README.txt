@@ -1,3 +1,5 @@
+CouCou
+
 This game requires Python 3.7.7 (and further) and VLC (to play music).
 
 To install the necessary libraries, you need pip installed on your computer.
