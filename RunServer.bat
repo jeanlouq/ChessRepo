@@ -1,2 +1,2 @@
 cd Game
-py GameServer.py
+python GameServer.py
