@@ -1,5 +1,5 @@
 # ChessGame
-**This game requires Python 3.7.7 (and further) and VLC (to play music).
+**This game requires Python 3.7.7 (and further) and VLC (to play music).**
 
 ## Installation
 
