@@ -1,5 +1,4 @@
 # ChessGame
-
 **This game requires Python 3.7.7 (and further) and VLC (to play music).
 
 ## Installation
@@ -9,9 +8,12 @@ You will also need to have [VLC](https://www.videolan.org/vlc/index.fr.html) on 
 
 1. On Windows : run install.bat
 2. On Unix : in the terminal, run:
-	`pip install opencv-python`
-	`pip install numpy`
-	`pip install vlc-python`
+	
+```bash
+pip install opencv-python
+pip install numpy
+pip install vlc-python
+```
 
 
 ## How to play :
