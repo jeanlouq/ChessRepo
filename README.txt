@@ -1,4 +1,4 @@
-This game requires Python 3.7.7 (and further) and VLC (to play music).
+### This game requires Python 3.7.7 (and further) and VLC (to play music).
 
 To install the necessary libraries, you need pip installed on your computer.
 1. On Windows : run install.bat
