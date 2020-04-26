@@ -23,7 +23,7 @@ def mouseEvent(event,x,y,flags,param):
     if event == cv2.EVENT_LBUTTONDOWN : #checks mouse left button down condition
         global position_socket        
         try:
-            sendPosition(position_socket ,int(round(x)),int(round(y)))
+            position_socket.sendall(str.encode("\n".join([str(int(round(x))), str(int(round(y)))])))
             print('Move sent')
         except:
             print('Unable to send move')      
@@ -55,14 +55,6 @@ def initSocket():
     
     return position_socket,recv_image_socket,music_socket
 
-def sendPosition(sock,x,y):
-    command =str(x)
-    command = command.encode("Utf8")
-    sock.send(command)
-    time.sleep(0.1) # a small delay is added to avoid the reception of both values in only one
-    command =str(y)
-    command = command.encode("Utf8")
-    sock.send(command)
         
 def playMusic(socket):
     # Music loading

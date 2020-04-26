@@ -20,17 +20,14 @@ def recvPos(socket,color): # Action after receiving clicked position from the pl
     global music1_socket,music2_socket,musicPlaying
     while True:
         # Receiving click position
-        x = socket.recv(1024)
+        x, y = [int(i) for i in socket.recv(2048).decode('utf-8').split('\n')]
         if not x:
             socket.close()
             break
-        x = int(x.decode())
-        print("x : ", x)
-        y = socket.recv(1024)
         if not y:
             socket.close()
             break
-        y = int(y.decode())
+        print("x : ", x)
         print("y : ", y)
             
         # According to the clicked position, an action is taken
@@ -162,7 +159,7 @@ if __name__ == "__main__":  # execute only if run as a script
       
     # Parameters initialization
     musicPlaying = 0 # not playing  music initially
-    size_factor = 0.8 # to modify the size of the displayed window (smaller makes the game faster)
+    size_factor = 1 # to modify the size of the displayed window (smaller makes the game faster)
     
     # Loading necessary images
     playButton = resize(cv2.imread('images/play.png'),int(size_factor*35))

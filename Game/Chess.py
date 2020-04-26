@@ -132,11 +132,7 @@ class ChessGame:
                         else:
                             i = i-8
                             inlay(self.cemetery[dy:2*dy,i*dx:(i+1)*dx],deletedPiece,0,0,1)
-                        if self.whiteIndexCimet == self.oldWhiteIndexCimet:
-                            self.whiteIndexCimet += 1
-                        else:
-                            self.whiteIndexCimet += 1
-                            self.oldWhiteIndexCimet += 1
+                        self.whiteIndexCimet += 1 
                         break  
             # General situation
             self.Whites[name]=place
@@ -165,11 +161,11 @@ class ChessGame:
                     else:
                         i = i-8
                         inlay(self.cemetery[dy:2*dy,i*dx:(i+1)*dx],deletedPiece,0,0,1)
-                    if self.whiteIndexCimet == self.oldWhiteIndexCimet:
-                        self.whiteIndexCimet += 1
-                    else:
-                        self.whiteIndexCimet += 1
-                        self.oldWhiteIndexCimet += 1
+                    #if self.whiteIndexCimet == self.oldWhiteIndexCimet:
+                    self.whiteIndexCimet += 1
+                    # else:
+                    #     self.whiteIndexCimet += 1
+                    #     self.oldWhiteIndexCimet += 1
                     break
                 
             if name =='ROI':
@@ -309,7 +305,7 @@ class ChessGame:
         for n,(y,x) in self.Whites.items():
             if n =='ROI':
                 piece = cv2.resize(self.roib, (dx,dy), interpolation = cv2.INTER_AREA)
-            elif n =='DAME':
+            elif n =='DAME' or n == 'DAME2' or n == 'DAME3':
                 piece = cv2.resize(self.dameb, (dx,dy), interpolation = cv2.INTER_AREA)
             elif n =='FOU1' or n == 'FOU2':
                 piece = cv2.resize(self.foub, (dx,dy), interpolation = cv2.INTER_AREA)
@@ -324,7 +320,7 @@ class ChessGame:
         for n,(y,x) in self.Blacks.items():
             if n =='ROI':
                 piece = cv2.resize(self.roin, (dx,dy), interpolation = cv2.INTER_AREA)
-            elif n =='DAME':
+            elif n =='DAME' or n == 'DAME2' or n == 'DAME3':
                 piece = cv2.resize(self.damen, (dx,dy), interpolation = cv2.INTER_AREA)
             elif n =='FOU1' or n == 'FOU2':
                 piece = cv2.resize(self.foun, (dx,dy), interpolation = cv2.INTER_AREA)
@@ -368,10 +364,18 @@ class ChessGame:
                             print('Move :',(i,j))
                             self.returnOK = 1
                             self.oldWhites = self.Whites.copy()
-                            self.oldBlacks = self.Blacks.copy()                  
+                            self.oldBlacks = self.Blacks.copy() 
+                            self.oldWhiteQueenCounter = self.WhiteQueenCounter
+                            self.oldBlackQueenCounter = self.BlackQueenCounter
+                            self.oldHasMovedWKing = self.hasMovedWKing
+                            self.oldHasMovedBKing = self.hasMovedBKing
+                            
                             self.oldBoard1 = np.copy(self.Board1)
                             self.oldBoard2 = np.copy(self.Board2)
                             self.oldOccupTable = np.copy(self.occupTable)
+                            self.oldCemetery = self.cemetery
+                            self.oldWhiteIndexCimet = self.whiteIndexCimet
+                            self.oldBlackIndexCimet = self.blackIndexCimet
                             res1,res2 = self.move(self.player,self.selectedType,(j,i))
                             if self.player == 'Whites':
                                 self.player = 'Blacks'
@@ -407,10 +411,19 @@ class ChessGame:
                             print('Move :',(i,j))
                             self.returnOK = 1
                             self.oldWhites = self.Whites.copy()
-                            self.oldBlacks = self.Blacks.copy()                  
+                            self.oldBlacks = self.Blacks.copy() 
+                            self.oldWhiteQueenCounter = self.WhiteQueenCounter
+                            self.oldBlackQueenCounter = self.BlackQueenCounter
+                            self.oldHasMovedWKing = self.hasMovedWKing
+                            self.oldHasMovedBKing = self.hasMovedBKing
+                            
                             self.oldBoard1 = np.copy(self.Board1)
                             self.oldBoard2 = np.copy(self.Board2)
                             self.oldOccupTable = np.copy(self.occupTable)
+                            self.oldCemetery = self.cemetery
+                            self.oldWhiteIndexCimet = self.whiteIndexCimet
+                            self.oldBlackIndexCimet = self.blackIndexCimet
+
                             res1,res2 = self.move(self.player,self.selectedType,(j,i))
                             if self.player == 'Whites':
                                 self.player = 'Blacks'
@@ -525,10 +538,10 @@ class ChessGame:
                 if ljr[k]>=0 and ljr[k] <=7 and lir[k]>=0 and lir[k] <=7 and not(self.occupTable[ljr[k]][lir[k]]==-1):
                     li+=[lir[k]]
                     lj+=[ljr[k]]
-            if not(self.hasMovedBKing) and self.Blacks['TOUR1'] == (0,0) and self.occupTable[0][1]==0 and self.occupTable[0][2]==0 and self.occupTable[0][3]==0 :
+            if not(self.hasMovedBKing) and 'TOUR1' in self.Blacks and self.Blacks['TOUR1'] == (0,0) and self.occupTable[0][1]==0 and self.occupTable[0][2]==0 and self.occupTable[0][3]==0 :
                 li += [i-2]
                 lj += [j]
-            if not(self.hasMovedBKing) and self.Blacks['TOUR2'] == (0,7) and self.occupTable[0][5]==0 and self.occupTable[0][6]==0 :
+            if not(self.hasMovedBKing) and 'TOUR2' in self.Blacks and self.Blacks['TOUR2'] == (0,7) and self.occupTable[0][5]==0 and self.occupTable[0][6]==0 :
                 li += [i+2]
                 lj += [j]
         elif color == 'Blacks': # Black pawn
@@ -558,10 +571,10 @@ class ChessGame:
                     if ljr[k]>=0 and ljr[k] <=7 and lir[k]>=0 and lir[k] <=7 and not(self.occupTable[ljr[k]][lir[k]]==1):
                         li+=[lir[k]]
                         lj+=[ljr[k]]
-                if not(self.hasMovedWKing) and self.Whites['TOUR1'] == (7,0) and self.occupTable[7][1]==0 and self.occupTable[7][2]==0 and self.occupTable[7][3]==0 :
+                if not(self.hasMovedWKing) and 'TOUR1' in self.Whites and self.Whites['TOUR1'] == (7,0) and self.occupTable[7][1]==0 and self.occupTable[7][2]==0 and self.occupTable[7][3]==0 :
                     li += [i-2]
                     lj += [j]
-                if not(self.hasMovedWKing) and self.Whites['TOUR2'] == (7,7) and self.occupTable[7][5]==0 and self.occupTable[7][6]==0 :
+                if not(self.hasMovedWKing) and 'TOUR2' in self.Whites and self.Whites['TOUR2'] == (7,7) and self.occupTable[7][5]==0 and self.occupTable[7][6]==0 :
                     li += [i+2]
                     lj += [j]
         else : # White pawn
