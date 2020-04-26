@@ -22,7 +22,7 @@ bash linux_install.sh
 
 
 ## How to play :
-1. Set the server address in player.py (make sure the ports are opened on your server machine)
+1. Set the server address in `player.py` (in the Game folder) and make sure the ports are opened on your server machine.
 2. Run GameServer.py : `python GameServer.py` (on Windows, double-click `GameServer.bat`)
 3. Run a first player file player.py :  `python player.py` (on Windows, double-click `play.bat`)
 4. Run the second one from another machine connected to internet
