@@ -1,5 +1,5 @@
-pip install --upgrade pip
-pip install opencv-python
-pip install numpy
-pip install python-vlc
+pip install --user --upgrade pip
+pip install --user opencv-python
+pip install --user numpy
+pip install --user python-vlc
 pause
