@@ -1,19 +1,24 @@
 # ChessGame
 **This game requires Python 3.7.7 (and further) and VLC (to play music).**
 
+## Description
+
+This is a personnel project that I created during the containment period to teach my girlfriend how to play chess, as she was far from me, on the other side of France... It features a server connecting two players who can play both on a local network or online via the internet. Please be advised that it is not a perfect work, as it is my first try at a complete game. The interface is definitely not optimal, as it uses OpenCV to create and display images, rather than a real computer window with buttons, layouts, etc. For example, I could have used Qt, but for this first version, I tried with what I already master: python and OpenCV.
+
 ## Installation
 
-First of all, you need to install Python [here](https://www.python.org/downloads/) and have `pip` working on your computer.
-You will also need to have [VLC](https://www.videolan.org/vlc/index.fr.html) on your computer
+First of all, you need Python and `pip` working on your computer (download [here](https://www.python.org/downloads/)).
 
-1. On Windows : run install.bat
-2. On Unix : in the terminal, run:
-	
+Secondly, you will also need VLC (download [here](https://www.videolan.org/vlc/index.fr.html)). It is important to add the path to VLC to your user PATH. The commande line will depend on your OS. On Windows, you can also do it from the configuration board.
+
+When this is done, you can run the installation file corresponding to your OS :
+1. On Windows : double-click windows_install.bat
+2. On Linux : run linux_install.sh with the following commands.	
 ```bash
-pip install opencv-python
-pip install numpy
-pip install vlc-python
+cd PATH/TO/INSTALLER
+bash linux_install.sh
 ```
+3. On MacOs : double-click mac_install.command
 
 
 ## How to play :
